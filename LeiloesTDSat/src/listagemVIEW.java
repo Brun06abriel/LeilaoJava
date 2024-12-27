@@ -53,8 +53,23 @@ public class listagemVIEW extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nome", "Valor", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(listaProdutos);
+        if (listaProdutos.getColumnModel().getColumnCount() > 0) {
+            listaProdutos.getColumnModel().getColumn(0).setMinWidth(10);
+            listaProdutos.getColumnModel().getColumn(0).setMaxWidth(30);
+            listaProdutos.getColumnModel().getColumn(1).setMinWidth(150);
+            listaProdutos.getColumnModel().getColumn(1).setMaxWidth(250);
+            listaProdutos.getColumnModel().getColumn(2).setMaxWidth(60);
+        }
 
         jLabel1.setFont(new java.awt.Font("Lucida Fax", 0, 18)); // NOI18N
         jLabel1.setText("Lista de Produtos");

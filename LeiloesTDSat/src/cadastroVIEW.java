@@ -143,6 +143,19 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        boolean ok= true;
+        
+        if(cadastroNome.getText().isEmpty()){
+            JOptionPane.showMessageDialog(cadastroVIEW.this, "O Campo Nome é obrigatório!","INFORMAÇÃO",JOptionPane.INFORMATION_MESSAGE);
+                cadastroNome.requestFocusInWindow();
+            ok = false;
+        }    
+        if(cadastroValor.getText().isEmpty()){
+            JOptionPane.showMessageDialog(cadastroVIEW.this, "O Campo Valor é obrigatório!","INFORMAÇÃO",JOptionPane.INFORMATION_MESSAGE);
+                cadastroValor.requestFocusInWindow();
+            ok = false;
+        }
+        if(ok){
         ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
@@ -153,7 +166,8 @@ public class cadastroVIEW extends javax.swing.JFrame {
         
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
-         JOptionPane.showMessageDialog(cadastroVIEW.this, " O Produto foi cadastrado com sucesso!","ATUALIZAÇÃO",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(cadastroVIEW.this, " O Item: " + nome + " \nFoi cadastrado com sucesso!","ATUALIZAÇÃO",JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
