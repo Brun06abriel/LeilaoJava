@@ -22,8 +22,8 @@ public class conectaDAO {
         
         try {
         
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecaariano","root","Bruno123");
-            
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11?useSSL=false","root","Bruno123");
+            System.out.println( "Conexao com o banco de dados estabelecida." );
         } catch (SQLException erro){
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
         }
