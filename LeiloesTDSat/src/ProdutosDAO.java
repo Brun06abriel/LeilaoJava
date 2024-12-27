@@ -14,15 +14,13 @@ import java.util.ArrayList;
 
 public class ProdutosDAO {
     
-    Connection conn;
+    Connection conn = new conectaDAO().connectDB();;
     PreparedStatement prep;
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
         
-        
-        conn = new conectaDAO().connectDB();
         
           int status;
         try {
@@ -51,7 +49,42 @@ public class ProdutosDAO {
     
     public ArrayList<ProdutosDTO> listarProdutos(){
         
-        return listagem;
+          
+    String sql = "SELECT * FROM produtos" ;
+          try {
+
+    /* Executando o comando select */
+     PreparedStatement stmt = this.conn.prepareStatement(sql);
+                   resultset = stmt.executeQuery();            
+                    
+    java.util.List<ProdutosDTO> listaGeralProdutos = new ArrayList<>();
+    /* Exibindo os resultados */
+    while (resultset.next()) {
+        ProdutosDTO produto = new ProdutosDTO();
+        int id = resultset.getInt("id");
+        String nome = resultset.getString("nome");
+        int valor = resultset.getInt("valor");
+        String status = resultset.getString("status");
+       
+        /*                        
+        System.out.println("dados da tabela autor do banco de dados");
+        System.out.println("--------------------------");
+        System.out.println(email + " - " + nome + " - "+ telefone); */
+        
+        produto.setId(id);
+        produto.setNome(nome);
+        produto.setValor(valor);
+        produto.setStatus(status);
+        
+        listaGeralProdutos.add(produto);
+    }
+     return (ArrayList<ProdutosDTO>) listaGeralProdutos;
+} catch (SQLException sqle) {
+    System.out.println( "Erro efetuando consulta : " + sqle.getMessage() );
+    return null;
+}
+        
+        
     }
     
     
