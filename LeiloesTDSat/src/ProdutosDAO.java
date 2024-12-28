@@ -47,9 +47,7 @@ public class ProdutosDAO {
         
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos(){
-        
-          
+    public ArrayList<ProdutosDTO> listarProdutos(){               
     String sql = "SELECT * FROM produtos" ;
           try {
 
@@ -87,8 +85,62 @@ public class ProdutosDAO {
         
     }
     
-    
-    
+    public void venderProduto(Integer id){
         
+        
+          int status;
+           try{ 
+         /* Executando o comando update */
+         
+         
+           prep = conn.prepareStatement("UPDATE produtos SET status = 'Vendido'  where id = ?");
+            prep.setInt(1, id);
+    // PreparedStatement stmt = this.conn.prepareStatement(sql);
+                   status = prep.executeUpdate();   
+             
+           // prep.executeUpdate();       
+                   
+                   
+  
+        
+    } catch (SQLException sqle) {
+    System.out.println( "Erro efetuando consulta : " + sqle.getMessage() );
+    } 
+    
+    }   
+    
+     public ArrayList<ProdutosDTO> listarProdutosVendidos(){               
+    String sql = "SELECT * FROM produtos where status = 'Vendido'" ;
+          try {
+
+    /* Executando o comando select */
+     PreparedStatement stmt = this.conn.prepareStatement(sql);
+                   resultset = stmt.executeQuery();            
+                    
+    java.util.List<ProdutosDTO> listaGeralProdutos = new ArrayList<>();
+    /* Exibindo os resultados */
+    while (resultset.next()) {
+        ProdutosDTO produto = new ProdutosDTO();
+        int id = resultset.getInt("id");
+        String nome = resultset.getString("nome");
+        int valor = resultset.getInt("valor");
+        String status = resultset.getString("status");
+       
+        produto.setId(id);
+        produto.setNome(nome);
+        produto.setValor(valor);
+        produto.setStatus(status);
+        
+        listaGeralProdutos.add(produto);
+    }
+     return (ArrayList<ProdutosDTO>) listaGeralProdutos;
+} catch (SQLException sqle) {
+    System.out.println( "Erro efetuando consulta : " + sqle.getMessage() );
+    return null;
+}
+        
+        
+    }
+    
 }
 
