@@ -87,8 +87,28 @@ public class ProdutosDAO {
         
     }
     
-    
-    
+    public void venderProduto(Integer id){
         
+        
+          int status;
+           try{ 
+         /* Executando o comando update */
+         
+         
+           prep = conn.prepareStatement("UPDATE produtos SET status = 'Vendido'  where id = ?");
+            prep.setInt(1, id);
+    // PreparedStatement stmt = this.conn.prepareStatement(sql);
+                   status = prep.executeUpdate();   
+             
+           // prep.executeUpdate();       
+                   
+                   
+  
+        
+    } catch (SQLException sqle) {
+    System.out.println( "Erro efetuando consulta : " + sqle.getMessage() );
+    } 
+    
+    }   
 }
 
